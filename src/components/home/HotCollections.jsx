@@ -1,11 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import AuthorImage from "../../images/author_thumbnail.jpg";
-import nftImage from "../../images/nftImage.jpg";
 import axios from "axios";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Slider from "react-slick";
 
 const HotCollections = () => {
   const [hotCollections, setHotCollections] = useState([]);
+
+  const settings = {
+    dots: false,
+    arrows: true,
+    swipe: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+  };
 
   useEffect(() => {
     const getHotCollections = async () => {
@@ -30,9 +41,11 @@ const HotCollections = () => {
               <div className="small-border bg-color-2"></div>
             </div>
           </div>
-          {hotCollections.map((collection, index) => (
-            <HotCollectionCard key={index} collection={collection} />
-          ))}
+          <Slider {...settings}>
+            {hotCollections.map((collection, index) => (
+              <HotCollectionCard key={index} collection={collection} />
+            ))}
+          </Slider>
         </div>
       </div>
     </section>
@@ -43,7 +56,7 @@ export default HotCollections;
 
 const HotCollectionCard = ({ collection }) => {
   return (
-    <div className="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+    <div className="hc-card">
       <div className="nft_coll">
         <div className="nft_wrap">
           <Link to="/item-details">

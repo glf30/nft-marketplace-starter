@@ -16714,3 +16714,25 @@ img {
 .no-cursor {
   cursor: not-allowed;
 }
+
+.hc-card {
+  margin: 0 6px;
+}
+
+/* Arrows */
+.slick-prev, .slick-next {
+  z-index: 1;
+  width: 72px !important;
+  height: 72px !important;
+}
+
+.slick-prev:before,.slick-next:before {
+  display: inline-block !important;
+  transform: scale(3);
+  color: #8364e2 !important;
+}
+.slick-arrow {
+  width: 36px !important;
+  height: 46px !important;
+  background: #fff !important;
+}
