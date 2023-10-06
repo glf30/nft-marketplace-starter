@@ -6,11 +6,12 @@ import { ItemsCard, SkeletonItemsCard } from "../cards/ItemsCard";
 const ExploreItems = () => {
   const [items, setItems] = useState([]);
   const [displaySize, setDisplaySize] = useState(8);
+  const [selectFilter, setSelectFilter] = useState("")
 
   useEffect(() => {
     const getItems = async () => {
       const res = await axios.get(
-        "https://us-central1-nft-cloud-functions.cloudfunctions.net/explore"
+        `https://us-central1-nft-cloud-functions.cloudfunctions.net/explore${selectFilter}`
       );
       const { data } = res;
 
@@ -18,16 +19,21 @@ const ExploreItems = () => {
     };
 
     getItems();
-  }, []);
+  }, [selectFilter]);
 
   const handleShowMore = () => {
     setDisplaySize(displaySize + 4);
   };
 
+  const handleSelect = (event) => {
+    setSelectFilter(`?filter=${event.target.value}`)
+    setItems([])
+  }
+
   return (
     <>
       <div>
-        <select id="filter-items" defaultValue="">
+        <select id="filter-items" defaultValue="" onChange={handleSelect}>
           <option value="">Default</option>
           <option value="price_low_to_high">Price, Low to High</option>
           <option value="price_high_to_low">Price, High to Low</option>
