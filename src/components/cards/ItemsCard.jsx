@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-export const NewItemsCard = ({ item }) => {
+export const ItemsCard = ({ item }) => {
   const [countdown, setCountdown] = useState({hours: 0, minutes: 0, seconds: 0});
 
   useEffect(() => {
@@ -91,7 +91,7 @@ export const NewItemsCard = ({ item }) => {
   );
 };
 
-export const SkeletonNewItemsCard = () => {
+export const SkeletonItemsCard = () => {
   return (
     <div className="new-item">
       <div className="nft__item">
