@@ -5,6 +5,7 @@ import { ItemsCard, SkeletonItemsCard } from "../cards/ItemsCard";
 
 const ExploreItems = () => {
   const [items, setItems] = useState([]);
+  const [displaySize, setDisplaySize] = useState(8);
 
   useEffect(() => {
     const getItems = async () => {
@@ -19,6 +20,10 @@ const ExploreItems = () => {
     getItems();
   }, []);
 
+  const handleShowMore = () => {
+    setDisplaySize(displaySize + 4);
+  };
+
   return (
     <>
       <div>
@@ -30,7 +35,7 @@ const ExploreItems = () => {
         </select>
       </div>
       {items.length > 0
-        ? items.map((item, index) => (
+        ? items.slice(0, displaySize).map((item, index) => (
             <div
               key={index}
               className="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12"
@@ -49,9 +54,16 @@ const ExploreItems = () => {
             </div>
           ))}
       <div className="col-md-12 text-center">
-        <Link to="" id="loadmore" className="btn-main lead">
-          Load more
-        </Link>
+        {displaySize < items.length && (
+          <Link
+            to=""
+            id="loadmore"
+            className="btn-main lead"
+            onClick={handleShowMore}
+          >
+            Load more
+          </Link>
+        )}
       </div>
     </>
   );
