@@ -8,6 +8,7 @@ const Author = () => {
   const { id } = useParams();
   const [items, setItems] = useState([]);
   const [author, setAuthor] = useState({});
+  const [isFollowing, setIsFollowing] = useState(false);
 
   useEffect(() => {
     console.log(id);
@@ -27,6 +28,10 @@ const Author = () => {
 
     getItems();
   }, []);
+
+  const handleFollow = () => {
+    setIsFollowing(!isFollowing);
+  }
 
   return (
     <div id="wrapper">
@@ -114,12 +119,33 @@ const Author = () => {
                     <div className="de-flex-col">
                       {author.followers ? (
                         <>
-                          <div className="profile_follower">
-                            {author.followers} followers
-                          </div>
-                          <Link to="#" className="btn-main">
-                            Follow
-                          </Link>
+                          {!isFollowing ? (
+                            <>
+                              <div className="profile_follower">
+                                {author.followers} followers
+                              </div>
+                              <Link
+                                to="#"
+                                className="btn-main"
+                                onClick={handleFollow}
+                              >
+                                Follow
+                              </Link>
+                            </>
+                          ) : (
+                            <>
+                              <div className="profile_follower">
+                                {author.followers + 1} followers
+                              </div>
+                              <Link
+                                to="#"
+                                className="btn-main"
+                                onClick={handleFollow}
+                              >
+                                Unfollow
+                              </Link>
+                            </>
+                          )}
                         </>
                       ) : (
                         <div
