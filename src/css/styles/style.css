@@ -16719,6 +16719,10 @@ img {
   margin: 0 6px;
 }
 
+.new-item {
+  margin: 0 8px;
+}
+
 /* Arrows */
 .slick-prev, .slick-next {
   z-index: 1;
