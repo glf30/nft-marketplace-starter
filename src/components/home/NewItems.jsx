@@ -4,8 +4,6 @@ import axios from "axios";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
-// import AuthorImage from "../../images/author_thumbnail.jpg";
-// import nftImage from "../../images/nftImage.jpg"
 
 const NewItems = () => {
   const [newItems, setNewItems] = useState([]);
@@ -86,6 +84,35 @@ const NewItems = () => {
 export default NewItems;
 
 const NewItemsCard = ({ item }) => {
+  const [countdown, setCountdown] = useState({});
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const newCountdown = calculateCountdown();
+      setCountdown(newCountdown);
+
+      if (newCountdown.total <= 0) {
+        clearInterval(interval);
+      }
+    }, 1000);
+
+    //used for cleanup when countdown finishes
+    return () => clearInterval(interval);
+  }, [countdown]);
+
+  const calculateCountdown = () => {
+    const time = new Date(item.expiryDate - Date.now());
+    const hours = time.getUTCHours();
+    const minutes = time.getUTCMinutes();
+    const seconds = time.getUTCSeconds();
+
+    return {
+      hours,
+      minutes,
+      seconds,
+    };
+  };
+
   return (
     <div className="new-item">
       <div className="nft__item">
@@ -100,7 +127,9 @@ const NewItemsCard = ({ item }) => {
             <i className="fa fa-check"></i>
           </Link>
         </div>
-        {!!item.expiryDate && <div className="de_countdown">5h 30m 32s</div>}
+        {!!item.expiryDate && (
+          <div className="de_countdown">{`${countdown.hours}h ${countdown.minutes}m ${countdown.seconds}s`}</div>
+        )}
 
         <div className="nft__item_wrap">
           <div className="nft__item_extra">
