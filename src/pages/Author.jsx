@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import AuthorBanner from "../images/author_banner.jpg";
 import AuthorItems from "../components/author/AuthorItems";
-import { Link, useParams  } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 
 const Author = () => {
   const { id } = useParams();
   const [items, setItems] = useState([]);
-  const [author, setAuthor] = useState({})
+  const [author, setAuthor] = useState({});
 
   useEffect(() => {
     console.log(id);
@@ -18,15 +18,15 @@ const Author = () => {
       const { data } = res;
 
       const modifiedData = data.nftCollection.map((nft) => {
-        return {...nft, ...data}
-      })
+        return { ...nft, ...data };
+      });
 
       setItems([...modifiedData]);
       setAuthor(data);
     };
 
     getItems();
-  },[]);
+  }, []);
 
   return (
     <div id="wrapper">
@@ -48,29 +48,88 @@ const Author = () => {
                 <div className="d_profile de-flex">
                   <div className="de-flex-col">
                     <div className="profile_avatar">
-                      <img src={author.authorImage} alt="" />
+                      {!!author.authorImage ? (
+                        <img src={author.authorImage} alt="" />
+                      ) : (
+                        <div
+                          className="skeleton-box"
+                          style={{
+                            width: "150px",
+                            height: "150px",
+                            borderRadius: "50%",
+                          }}
+                        ></div>
+                      )}
 
                       <i className="fa fa-check"></i>
                       <div className="profile_name">
                         <h4>
-                          {author.authorName}
-                          <span className="profile_username">@{author.tag}</span>
-                          <span id="wallet" className="profile_wallet">
-                            {author.address}
+                          {!!author.authorName ? (
+                            <>{author.authorName}</>
+                          ) : (
+                            <div
+                              className="skeleton-box"
+                              style={{
+                                width: "200px",
+                                height: "25px",
+                              }}
+                            ></div>
+                          )}
+                          <span className="profile_username">
+                            {!!author.tag ? (
+                              <>@{author.tag}</>
+                            ) : (
+                              <div
+                                className="skeleton-box"
+                                style={{
+                                  width: "50%",
+                                  height: "20px",
+                                }}
+                              ></div>
+                            )}
                           </span>
-                          <button id="btn_copy" title="Copy Text">
-                            Copy
-                          </button>
+                          {!!author.address ? (
+                            <>
+                              <span id="wallet" className="profile_wallet">
+                                {author.address}
+                              </span>
+                              <button id="btn_copy" title="Copy Text">
+                                Copy
+                              </button>{" "}
+                            </>
+                          ) : (
+                            <div
+                              className="skeleton-box"
+                              style={{
+                                width: "200px",
+                                height: "20px",
+                              }}
+                            ></div>
+                          )}
                         </h4>
                       </div>
                     </div>
                   </div>
                   <div className="profile_follow de-flex">
                     <div className="de-flex-col">
-                      <div className="profile_follower">{author.followers} followers</div>
-                      <Link to="#" className="btn-main">
-                        Follow
-                      </Link>
+                      {author.followers ? (
+                        <>
+                          <div className="profile_follower">
+                            {author.followers} followers
+                          </div>
+                          <Link to="#" className="btn-main">
+                            Follow
+                          </Link>
+                        </>
+                      ) : (
+                        <div
+                          className="skeleton-box"
+                          style={{
+                            width: "150px",
+                            height: "30px",
+                          }}
+                        ></div>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -78,7 +137,7 @@ const Author = () => {
 
               <div className="col-md-12">
                 <div className="de_tab tab_simple">
-                  <AuthorItems items={items}/>
+                  <AuthorItems items={items} />
                 </div>
               </div>
             </div>
