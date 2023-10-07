@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 export const ItemsCard = ({ item }) => {
-  const [countdown, setCountdown] = useState({hours: 0, minutes: 0, seconds: 0});
+  const [countdown, setCountdown] = useState({
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  });
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -32,7 +36,13 @@ export const ItemsCard = ({ item }) => {
   };
 
   return (
-    <div className="new-item">
+    <div
+      className="new-item"
+      data-aos="fade-in"
+      data-aos-delay="50"
+      data-aos-duration="500"
+      data-aos-easing="ease-in-out"
+    >
       <div className="nft__item">
         <div className="author_list_pp">
           <Link

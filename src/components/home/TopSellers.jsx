@@ -49,7 +49,12 @@ export default TopSellers;
 
 const TopSellerCard = ({ seller }) => {
   return (
-    <li>
+    <li
+      data-aos="fade-in"
+      data-aos-delay="50"
+      data-aos-duration="500"
+      data-aos-easing="ease-in-out"
+    >
       <div className="author_list_pp">
         <Link to={`/author/${seller.authorId}`}>
           <img className="lazy pp-author" src={seller.authorImage} alt="" />
