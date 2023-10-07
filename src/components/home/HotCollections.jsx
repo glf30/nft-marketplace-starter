@@ -88,7 +88,13 @@ export default HotCollections;
 
 const HotCollectionCard = ({ collection }) => {
   return (
-    <div className="hc-card">
+    <div
+      className="hc-card"
+      data-aos="fade-in"
+      data-aos-delay="50"
+      data-aos-duration="500"
+      data-aos-easing="ease-in-out"
+    >
       <div className="nft_coll">
         <div className="nft_wrap">
           <Link to={`/item-details/${collection.nftId}`}>
