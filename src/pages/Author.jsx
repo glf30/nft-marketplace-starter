@@ -11,7 +11,6 @@ const Author = () => {
   const [isFollowing, setIsFollowing] = useState(false);
 
   useEffect(() => {
-    console.log(id);
     const getItems = async () => {
       const res = await axios.get(
         `https://us-central1-nft-cloud-functions.cloudfunctions.net/authors?author=${id}`
